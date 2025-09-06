@@ -1,0 +1,33 @@
+# Virtual environment
+env/
+# venv/
+# .venv/
+
+# # Byte-compiled / cache files
+# __pycache__/
+# *.py[cod]
+# *$py.class
+
+# # Distribution / packaging
+# *.egg-info/
+# dist/
+# build/
+
+# Jupyter Notebook checkpoints
+notebooks/.ipynb_checkpoints/
+
+# # VSCode / editor
+# .vscode/
+# .idea/
+
+# # System files
+# .DS_Store
+# Thumbs.db
+
+# # Database / data sementara
+# *.sqlite3
+# *.db
+# *.log
+
+# # Environment variables
+# .env
