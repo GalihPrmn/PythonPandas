@@ -1,0 +1,95 @@
+### Read Data
+dataku = pd.read_csv("Lokasi File")
+dataexcel = pd.read_excel('../data/dataExcel.xlsx')
+datahtml = pd.read_html('https://www.fdic.gov/bank-failures/failed-bank-list')
+pd.read_sql('../data/dataSql', mesin)
+
+Membaca data:
+pd.read_csv() → dari CSV
+pd.read_excel() → dari Excel
+pd.read_sql() → dari database (SQLAlchemy)
+
+Melihat data:
+.head(), .tail() → lihat 5 baris awal/akhir
+.info(), .describe() → ringkasan data
+.shape -> Melihat Dimensi Data
+
+### Export Data
+dataku.to_csv('lokasi file disimpan', index=False)
+dataku.to_excel('../data/dataExcel.xlsx', index=False, sheet_name='AsikJuga')
+dataku.to_sql('../data/dataSql', con=mesin)
+
+
+### MANIPULASI DATA
+dataku['kolom']                 -> Mengambil Kolom (Disebut series karena 1 kolom aja, bisa juga disebut dataframe kalo Tampilannya rapih) 
+dataku[['kolom1', 'kolom2']]    -> Mengambil 2/Lebih Kolom (Kalo Tampilan nya rapih bisa juga disebut dataframe(meskipun 1 kolom))
+dataku.kolom                    -> dot natation
+
+dataku.drop(name, axis=1, inplace=True) -> Hapus kolom/baris (0 = Index | 1 = Kolom) - Inplace => Supaya tidak didefinisikan ulang
+dataku.dropna() -> Menghilangkan data NaN (Hapus baris nya)
+
+### Connect To Sql
+from sqlalchemy import create_engine
+    mesin = create_engine('sqlite:///:memory:')
+
+
+
+### Default Jupyter
+pd.options.display.min_rows = mauBerapaMinBaris  (Default 10) 
+pd.options.display.max_rows = mauBerapaMaksBaris (Default 60)
+
+dataku.info()                   -> Liat Informasi dari data
+dataku.describe()               -> Hitungan dasar matematis (hanya tipe data angka yang bisa masuk)
+dataku.describe(include="O")    -> Buat non numerik
+
+
+
+
+
+📌 2. Manipulasi Data
+Ini inti Pandas, sangat berguna buat laporan akuntansi:
+
+Indexing & selecting
+df['kolom'] → ambil kolom
+df.loc[], df.iloc[] → ambil baris/kolom tertentu
+
+Filtering (WHERE)
+df[df['akun'] == 'Kas']
+
+Sorting (ORDER BY)
+df.sort_values('tanggal')
+
+Mengubah data
+.rename(), .astype(), .replace()
+
+Handling missing value
+.dropna(), .fillna()
+
+
+📌 3. Analisis & Transformasi
+Bagian ini bikin data bisa dipakai untuk laporan keuangan:
+
+GroupBy (mirip PivotTable Excel)
+df.groupby('akun')['debit'].sum()
+
+Aggregasi
+.sum(), .mean(), .count()
+
+Pivot Table
+pd.pivot_table(df, values='debit', index='akun', columns='bulan', aggfunc='sum')
+
+Merging & Joining (mirip JOIN di SQL)
+pd.merge(df1, df2, on='akun')
+
+Concatenation (gabung tabel)
+pd.concat([df1, df2])
+
+
+
+📌 4. Date & Time (penting untuk akuntansi)
+
+Parsing tanggal: pd.to_datetime(df['tanggal'])
+Ekstrak bulan/tahun: df['tanggal'].dt.month
+
+Resample (misalnya buat laporan bulanan/kuartal):
+df.resample('M', on='tanggal')['debit'].sum()

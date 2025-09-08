@@ -13,3 +13,9 @@ pip freeze > requirements.txt
 
 ## Install Lib di Requirement
 pip install -r requirements.txt
+
+
+## Push Ke Github (Suka Lupa)
+git add .
+git commint -m ""
+git push origin main
